@@ -35,5 +35,21 @@ namespace CashRegisterTest
             //verify that cashRegister.process will trigger print
             spySpyPrinter.Verify(_ => _.Print(It.IsAny<string>()));
         }
+
+        [Fact]
+        public void Should_print_purchase_content_when_run_process_given_stub_purchase()
+        {
+            //given
+
+            var spySpyPrinter = new Mock<Printer>();
+            var cashRegister = new CashRegister(spySpyPrinter.Object);
+            var stubStubPurchase = new Mock<Purchase>();
+            stubStubPurchase.Setup(x => x.AsString()).Returns("moq content");
+            //when
+            cashRegister.Process(stubStubPurchase.Object);
+            //then
+            //verify that cashRegister.process will trigger print
+            spySpyPrinter.Verify(_ => _.Print("moq content"));
+        }
     }
 }
