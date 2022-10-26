@@ -48,8 +48,20 @@ namespace CashRegisterTest
             //when
             cashRegister.Process(stubStubPurchase.Object);
             //then
-            //verify that cashRegister.process will trigger print
             spySpyPrinter.Verify(_ => _.Print("moq content"));
+        }
+
+        [Fact]
+        public void Should_throw_hardware_exception_when_run_process()
+        {
+            //given
+            var stubPrinter = new Mock<Printer>();
+            stubPrinter.Setup(_ => _.Print(It.IsAny<string>())).Throws<PrinterOutOfPaperException>();
+            var cashRegister = new CashRegister(stubPrinter.Object);
+            //when
+            // cashRegister.Process(purchase);
+            //then
+            Assert.Throws<HardwareException>(() => cashRegister.Process(new Purchase()));
         }
     }
 }
