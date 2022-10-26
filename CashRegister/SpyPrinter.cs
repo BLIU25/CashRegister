@@ -12,8 +12,8 @@ namespace CashRegister
         public override void Print(string content)
         {
             // send message to a real printer
-            base.Print(content);
-            HasPrinted = true;
+            this.Print(content);
+            this.HasPrinted = true;
         }
     }
 }
